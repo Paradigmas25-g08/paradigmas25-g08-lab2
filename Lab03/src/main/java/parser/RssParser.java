@@ -1,8 +1,22 @@
 package parser;
 
 import java.io.StringReader;
-import javax.xml.parsers.DocumentBuilder;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+
+import org.xml.sax.SAXException;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.ByteArrayInputStream;
 
 /* Esta clase implementa el parser de feed de tipo rss (xml)
  
@@ -11,9 +25,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 */
 
 
-public class RssParser extends GeneralParser {
+public class RssParser extends GeneralParser{
 
-    public ArrayList<Map<String,String>> getItems(String feedRss){
+    public ArrayList<Map<String,String>> getItems(String feedRss) throws ParserConfigurationException, UnsupportedEncodingException, SAXException, IOException {
 
         DocumentBuilderFactory factory =DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = factory.newDocumentBuilder();
@@ -44,6 +58,8 @@ public class RssParser extends GeneralParser {
             }
 
         }
+
+        return null;
 
     }
 }
