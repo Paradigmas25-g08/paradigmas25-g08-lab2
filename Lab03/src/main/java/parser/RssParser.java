@@ -1,21 +1,31 @@
 package parser;
 
+import feed.*;
 import java.io.StringReader;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
-import org.xml.sax.SAXException;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.HashMap;
 import java.io.ByteArrayInputStream;
 
 /* Esta clase implementa el parser de feed de tipo rss (xml)
@@ -24,42 +34,58 @@ import java.io.ByteArrayInputStream;
     https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm,
 */
 
-
 public class RssParser extends GeneralParser{
 
-    public ArrayList<Map<String,String>> getItems(String feedRss) throws ParserConfigurationException, UnsupportedEncodingException, SAXException, IOException {
+    public Feed getFeed(String feedRss) throws ParserConfigurationException, UnsupportedEncodingException, SAXException, IOException, ParseException {
+
 
         DocumentBuilderFactory factory =DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = factory.newDocumentBuilder();
 
         StringBuilder xmlBuilder = new StringBuilder(); 
         xmlBuilder.append(feedRss);
-        ByteArrayInputStream input = new ByteArrayInputStream( xmlBuilder.toString().getBytes("UTF-8"));
+        ByteArrayInputStream input = new ByteArrayInputStream(xmlBuilder.toString().getBytes("UTF-8"));
+        
 
         Document xmldoc = docBuilder.parse(input);
 
         Element element = xmldoc.getDocumentElement();
-        System.out.println("Root element name is "+element.getTagName());
 
-        //Getting the child elements List
-        NodeList nList = element.getChildNodes();
+        //Traemos todos los hijos del root
+        NodeList rootChilds = element.getChildNodes();
+        //Nos quedamos solo con los hijos del nodo Channel
+        NodeList nList = rootChilds.item(1).getChildNodes();
+        //Extraemos el nombre del sitio
+        Node tempo = nList.item(1);
+        Element siteT = (Element) tempo;
+        String siteTitle = siteT.getTextContent();
+        Feed rssFeed = new Feed(siteTitle);
 
-        //Iterating through all the child elements of the root
+        //Iteramos sobre los hijos de Channel buscando los articulos
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
-            System.out.println("\nCurrent Element :" + nNode.getNodeName());
 
             if (nNode.getNodeName() == "item") {
-               Element eElement = (Element) nNode;
-               System.out.println("Title : " + eElement.getElementsByTagName("title").item(0).getTextContent());
-               System.out.println("Description : " + eElement.getElementsByTagName("description").item(0).getTextContent());
-               System.out.println("Publication Date : " + eElement.getElementsByTagName("pubDate").item(0).getTextContent());
-               System.out.println("Link : " + eElement.getElementsByTagName("link").item(0).getTextContent());
+                Element eElement = (Element) nNode;
+                String title = eElement.getElementsByTagName("title").item(0).getTextContent();
+                String description = eElement.getElementsByTagName("description").item(0).getTextContent();
+                Date pubDate = stringToDate(eElement.getElementsByTagName("pubDate").item(0).getTextContent());
+                String link = eElement.getElementsByTagName("link").item(0).getTextContent();
+
+                Article art = new Article (title, description, pubDate, link);
+                rssFeed.addArticle(art);
             }
 
         }
 
-        return null;
+        return rssFeed;
 
+    }
+
+    private Date stringToDate (String date) throws ParseException{
+        //Thu, 15 May 2025 11:38:57 +0000
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss", Locale.ENGLISH);
+        Date formattedDate = formatter.parse(date.split("[+]")[0]);
+        return formattedDate;
     }
 }

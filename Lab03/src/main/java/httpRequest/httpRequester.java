@@ -1,4 +1,4 @@
-package httprequest;
+package httpRequest;
 
 import java.net.HttpURLConnection;
 import java.net.*;

@@ -3,6 +3,7 @@ package feed;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Arrays;
 
 /*Esta clase modela la lista de articulos de un determinado feed*/
 public class Feed {
@@ -38,11 +39,21 @@ public class Feed {
 	public Article getArticle(int i){
 		return this.getArticleList().get(i);
 	}
-	
+
 	public int getNumberOfArticles(){
 		return this.getArticleList().size();
 	}
 	
+	public ArrayList<String> getAllTextList(){
+		ArrayList<String> textList = new ArrayList<>();
+		for (int i = 0; i < this.getArticleList().size(); i++){
+			Article tmp = this.getArticle(i);
+			String text = tmp.getText() + " " + tmp.getTitle();
+			textList.addAll(Arrays.asList(text.split("[:\\.\\,\\s+\\’]")));
+		}
+		return textList;
+	}
+
 	@Override
 	public String toString(){
 		return "Feed [siteName=" + getSiteName() + ", articleList=" + getArticleList() + "]";
