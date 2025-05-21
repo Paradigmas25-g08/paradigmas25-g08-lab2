@@ -18,9 +18,8 @@ import org.json.JSONArray;
     Leer https://www.w3docs.com/snippets/java/how-to-parse-json-in-java.html,
 */
 
-//extends GeneralParser
 
-public class SubscriptionParser{
+public class SubscriptionParser extends GeneralParser{
 
     public Subscription FileParser(String jsonFilePath) throws IOException {
 

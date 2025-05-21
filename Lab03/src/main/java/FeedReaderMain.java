@@ -1,9 +1,10 @@
 import parser.*;
 import subscription.*;
-import httpRequest.*;
+import httprequest.*;
 import feed.*;
 import namedEntity.heuristic.*;
 import namedEntity.*;
+import namedEntity.person.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -89,16 +90,16 @@ public class FeedReaderMain {
                         RssParser rssParser = new RssParser();
                         Feed rssFeed = rssParser.getFeed(feedRssString);
                         
-                        feedText = rssFeed.getAllTextList();
+                        feedText.addAll(rssFeed.getAllTextList());
                     }
                 } else {
                     System.out.println("Caso reddit");
                 }
             }
+            
+            List<NamedEntity> entities = heuristica.classify(feedText);
 
-            List<String> entities = feedText.stream().filter(s -> heuristica.isEntity(s)).collect(Collectors.toList());
-
-            System.out.println(entities);
+            System.out.println(entities.get(80));
 
         }else {
             printHelp();

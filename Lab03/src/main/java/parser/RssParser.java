@@ -69,7 +69,7 @@ public class RssParser extends GeneralParser{
                 Element eElement = (Element) nNode;
                 String title = eElement.getElementsByTagName("title").item(0).getTextContent();
                 String description = eElement.getElementsByTagName("description").item(0).getTextContent();
-                Date pubDate = stringToDate(eElement.getElementsByTagName("pubDate").item(0).getTextContent());
+                Date pubDate = super.stringToDate(eElement.getElementsByTagName("pubDate").item(0).getTextContent());
                 String link = eElement.getElementsByTagName("link").item(0).getTextContent();
 
                 Article art = new Article (title, description, pubDate, link);
@@ -82,10 +82,4 @@ public class RssParser extends GeneralParser{
 
     }
 
-    private Date stringToDate (String date) throws ParseException{
-        //Thu, 15 May 2025 11:38:57 +0000
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss", Locale.ENGLISH);
-        Date formattedDate = formatter.parse(date.split("[+]")[0]);
-        return formattedDate;
-    }
 }
