@@ -1,7 +1,7 @@
 package namedEntity.theme;
 
-public class OtrosTema extends Theme {
-    public OtrosTema() {
+public class Othertheme extends Theme {
+    public Othertheme() {
         super("Otros");
     }
 }

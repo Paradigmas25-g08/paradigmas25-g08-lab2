@@ -1,4 +1,4 @@
-package namedEntity;
+package namedEntity.theme;
 
 public class Theme{
     String name;

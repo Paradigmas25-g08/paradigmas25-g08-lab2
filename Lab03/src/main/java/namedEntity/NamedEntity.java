@@ -1,5 +1,6 @@
 package namedEntity;
 
+import namedEntity.theme.Theme;
 
 /*Esta clase modela la nocion de entidad nombrada*/
 
