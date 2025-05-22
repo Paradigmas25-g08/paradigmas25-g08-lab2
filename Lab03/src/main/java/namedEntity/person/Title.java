@@ -5,8 +5,8 @@ public class Title {
     private String profesional;
 
     public Title() {
-        this.canonicForm = "";
-        this.profesional = "";
+        this.canonicForm = null;
+        this.profesional = null;
     }
 
     public void setCanonicForm(String title){
@@ -24,4 +24,6 @@ public class Title {
     public String getProfesional(){
         return profesional;
     }
+
+    
 }

@@ -8,9 +8,9 @@ public class Organization extends NamedEntity {
 
     public Organization(String name, int frequency) {
         super(name, "Organization", frequency);
-        this.canonicForm = "";
-        this.memberNumber = 0;
-        this.type = "";
+        this.canonicForm = null;
+        this.memberNumber = -1;
+        this.type = null;
     }
 
     public String getCanonicForm() {

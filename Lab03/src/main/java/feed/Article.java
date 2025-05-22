@@ -3,12 +3,12 @@ package feed;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.Optional;
 
 import namedEntity.NamedEntity;
 import namedEntity.person.*;
 import namedEntity.*;
+import namedEntity.location.*;
 import namedEntity.heuristic.Heuristic;
 
 /*Esta clase modela el contenido de un articulo (ie, un item en el caso del rss feed) */
@@ -119,8 +119,53 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Other oth = new Other(s, 1, "Pais");
-						this.namedEntityList.add(oth);
+						Country coun = new Country(s, 1);
+						this.namedEntityList.add(coun);
+					}
+				} else if(category!=null && category.equals("City")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						City city = new City(s, 1);
+						this.namedEntityList.add(city);
+					}
+				} else if(category!=null && category.equals("Address")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Address ads = new Address(s, 1);
+						this.namedEntityList.add(ads);
+					}
+				} else if(category!=null && category.equals("Product")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Product pdt = new Product(s, 1);
+						this.namedEntityList.add(pdt);
+					}
+				} else if(category!=null && category.equals("Event")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Event evt = new Event(s, 1);
+						this.namedEntityList.add(evt);
+					}
+				} else if(category!=null && category.equals("Date")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Date1 dt = new Date1(s, 1);
+						this.namedEntityList.add(dt);
 					}
 				} else {
 
@@ -128,7 +173,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Other oth = new Other(s, 1, "???");
+						Other oth = new Other(s, 1);
 						this.namedEntityList.add(oth);
 					}
 				}

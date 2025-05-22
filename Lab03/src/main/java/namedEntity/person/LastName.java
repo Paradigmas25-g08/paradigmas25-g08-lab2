@@ -7,8 +7,8 @@ public class LastName {
 
 
     public LastName(){
-        this.canonicForm = "";
-        this.origin = "";
+        this.canonicForm = null;
+        this.origin = null;
     }
 
     public void setCanonicForm(String lastName){

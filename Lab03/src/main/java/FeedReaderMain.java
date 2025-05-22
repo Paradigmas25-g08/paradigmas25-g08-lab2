@@ -3,17 +3,12 @@ import subscription.*;
 import httpRequest.*;
 import feed.*;
 import namedEntity.heuristic.*;
-import namedEntity.*;
-import namedEntity.person.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import java.util.ArrayList;
-import java.util.Map;
 import java.text.ParseException;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class FeedReaderMain {
 
@@ -75,7 +70,7 @@ public class FeedReaderMain {
             SubscriptionParser subParser = new SubscriptionParser();
             Subscription subs = subParser.FileParser("./src/main/config/subscriptions.json");
 
-            List<Article> allArticles = new ArrayList<Article>();
+            
             QuickHeuristic heuristica = new QuickHeuristic();
 
             for (int i = 0; i < subs.getSubscriptionsList().size(); i++) {
@@ -101,7 +96,7 @@ public class FeedReaderMain {
                 }
             }
             
-            //System.out.println(allArticles.get(0));
+            
 
         }else {
             printHelp();

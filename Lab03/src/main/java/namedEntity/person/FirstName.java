@@ -10,8 +10,8 @@ public class FirstName {
 
 
     public FirstName(){
-        this.canonicForm = "";
-        this.origin = "";
+        this.canonicForm = null;
+        this.origin = null;
         this.alternativeForms = new ArrayList<>();
     }
 

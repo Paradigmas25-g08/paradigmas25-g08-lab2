@@ -1,11 +1,10 @@
 package feed;
 
 import namedEntity.*;
-
+import subscription.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /*Esta clase modela la lista de articulos de un determinado feed*/
@@ -67,10 +66,36 @@ public void heuristicPrint() {
       }
     }
   }
-  System.out.println("Name                                 |           Frequency                        |        Category               ");
-  for (NamedEntity n: allEntities){
-    System.out.println(n.getName()+"                                 |           "+n.getFrequency()+"                        |        "+n.getCategory()+"               ");
+  System.out.printf(
+    "%-30s | %10s | %-20s%n", 
+    "Name", "Frequency", "Category"
+  );
+  System.out.printf(
+    "%-30s-+-%10s-+-%-20s%n", 
+    "-".repeat(30), "-".repeat(10), "-".repeat(20)
+  );
+  
+  for (NamedEntity e : allEntities) {
+    System.out.printf(
+        "%-30s | %10d | %-20s%n",
+        e.getName(),
+        e.getFrequency(),
+        e.getCategory()
+    );
+    Counter person = new Counter("person");
+    Counter country = new Counter("country");
+    Counter city = new Counter("city");
+    Counter address = new Counter("address");
+    Counter organization = new Counter("organization");
+    Counter product = new Counter("product");
+    Counter event = new Counter("event");
+    Counter date = new Counter("date");
+    Counter other = new Counter("other");
+
+    
   }
+  System.out.println("Cantidad de entidades:" + allEntities.size());
+
 }
 
 public void prettyPrint(){

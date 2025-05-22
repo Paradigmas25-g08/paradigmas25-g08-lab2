@@ -1,8 +1,6 @@
 package parser;
 
 import feed.*;
-import java.io.StringReader;
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
 
@@ -17,15 +15,9 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.HashMap;
 import java.io.ByteArrayInputStream;
 
 /* Esta clase implementa el parser de feed de tipo rss (xml)
