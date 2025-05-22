@@ -1,6 +1,6 @@
 import parser.*;
 import subscription.*;
-import httprequest.*;
+import httpRequest.*;
 import feed.*;
 import namedEntity.heuristic.*;
 import namedEntity.*;
@@ -75,7 +75,7 @@ public class FeedReaderMain {
             SubscriptionParser subParser = new SubscriptionParser();
             Subscription subs = subParser.FileParser("./src/main/config/subscriptions.json");
 
-            ArrayList<String> feedText = new ArrayList<>();
+            List<Article> allArticles = new ArrayList<Article>();
             QuickHeuristic heuristica = new QuickHeuristic();
 
             for (int i = 0; i < subs.getSubscriptionsList().size(); i++) {
@@ -89,17 +89,19 @@ public class FeedReaderMain {
                 
                         RssParser rssParser = new RssParser();
                         Feed rssFeed = rssParser.getFeed(feedRssString);
+
+                        for (Article c : rssFeed.getArticleList()){
+                            c.computeNamedEntities(heuristica);
+                        }
                         
-                        feedText.addAll(rssFeed.getAllTextList());
+                        rssFeed.heuristicPrint();
                     }
                 } else {
                     System.out.println("Caso reddit");
                 }
             }
             
-            List<NamedEntity> entities = heuristica.classify(feedText);
-
-            System.out.println(entities.get(80));
+            //System.out.println(allArticles.get(0));
 
         }else {
             printHelp();

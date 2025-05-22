@@ -1,12 +1,6 @@
 package namedEntity.heuristic;
 
 import java.util.List;
-import namedEntity.*;
-import namedEntity.person.*;
-import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 public class QuickHeuristic extends Heuristic{
 	
@@ -40,60 +34,6 @@ public class QuickHeuristic extends Heuristic{
 		return word.length() > 1 && word.substring(0, 1).compareTo(word.substring(0, 1).toUpperCase()) == 0 && !keyWords.contains(word.toLowerCase());
 	}
 	
-	public List<NamedEntity> classify (ArrayList<String> candidates) {
-		List<NamedEntity> classifiedEnts = new ArrayList<>();
-		List<String> entities = candidates.stream().filter(s -> this.isEntity(s)).collect(Collectors.toList());
-		for (int i = 0; i < entities.size(); i++) {
-			String category = super.getCategory(entities.get(i));
-			String entName = entities.get(i);
-			if(category!=null && category.equals("Company")) {
-				int index = IntStream.range(0, classifiedEnts.size()).filter(j -> classifiedEnts.get(j).getName().equals(entName)).findFirst().orElse(-1);
-
-				if(index != -1){
-					classifiedEnts.get(index).incFrequency();
-				} else {
-					Organization org = new Organization(entities.get(i), 1);
-					org.setCanonicForm(entities.get(i));
-					classifiedEnts.add(org);
-				}
-			} else if (category!=null && category.equals("Person")) {
-
-				int index = IntStream.range(0, classifiedEnts.size()).filter(j -> classifiedEnts.get(j).getName().equals(entName)).findFirst().orElse(-1);
-
-				if(index != -1){
-					classifiedEnts.get(index).incFrequency();
-				} else {
-					Person per = new Person(entities.get(i), 1);
-					per.setLastName(entities.get(i), Optional.empty());
-					classifiedEnts.add(per);
-				}
-			} else if(category!=null && category.equals("Country")) {
-
-				int index = IntStream.range(0, classifiedEnts.size()).filter(j -> classifiedEnts.get(j).getName().equals(entName)).findFirst().orElse(-1);
-
-				if(index != -1){
-					classifiedEnts.get(index).incFrequency();
-				} else {
-					Other oth = new Other(entities.get(i), 1, "Pais");
-					classifiedEnts.add(oth);
-				}
-			} else {
-
-				int index = IntStream.range(0, classifiedEnts.size()).filter(j -> classifiedEnts.get(j).getName().equals(entName)).findFirst().orElse(-1);
-
-				if(index != -1){
-					System.out.println(index);
-					classifiedEnts.get(index).incFrequency();
-				} else {
-					Other oth = new Other(entities.get(i), 1, "???");
-					classifiedEnts.add(oth);
-				}
-			}
-		}
-
-		return classifiedEnts;
-	}
-
 	public static void main(String[] args) {
 //		QuickHeuristic qh = new QuickHeuristic();
 	}

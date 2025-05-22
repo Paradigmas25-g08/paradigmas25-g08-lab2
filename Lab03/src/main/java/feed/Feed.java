@@ -1,9 +1,12 @@
 package feed;
 
+import namedEntity.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /*Esta clase modela la lista de articulos de un determinado feed*/
 public class Feed {
@@ -44,22 +47,31 @@ public int getNumberOfArticles(){
 return this.getArticleList().size();
 }
 
-public ArrayList<String> getAllTextList(){
-// Devuelve un array que contiene todas las palabras de los articulos y el titulo
-ArrayList<String> textList = new ArrayList<>();
-for (int i = 0; i < this.getArticleList().size(); i++){
-Article tmp = this.getArticle(i);
-String text = tmp.getText() + " " + tmp.getTitle();
-textList.addAll(Arrays.asList(text.split("[:\\.\\,\\s+\\’\\“\\”\\$\\?\\¿\\‘\\-]")));
-}
-return textList;
-}
 
 @Override
 public String toString(){
 return "Feed [siteName=" + getSiteName() + ", articleList=" + getArticleList() + "]";
 }
 
+
+public void heuristicPrint() {
+  List<NamedEntity> allEntities = new ArrayList<NamedEntity>();
+  for (Article a: this.getArticleList()){
+    for (NamedEntity n: a.getNamedEntityList()){
+      int index = IntStream.range(0, allEntities.size()).filter(j -> allEntities.get(j).getName().equals(n.getName())).findFirst().orElse(-1);
+
+      if(index != -1){
+        allEntities.get(index).incFrequency();
+      } else {
+        allEntities.add(n);
+      }
+    }
+  }
+  System.out.println("Name                                 |           Frequency                        |        Category               ");
+  for (NamedEntity n: allEntities){
+    System.out.println(n.getName()+"                                 |           "+n.getFrequency()+"                        |        "+n.getCategory()+"               ");
+  }
+}
 
 public void prettyPrint(){
 for (Article a: this.getArticleList()){

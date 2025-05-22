@@ -3,8 +3,12 @@ package feed;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.Optional;
 
 import namedEntity.NamedEntity;
+import namedEntity.person.*;
+import namedEntity.*;
 import namedEntity.heuristic.Heuristic;
 
 /*Esta clase modela el contenido de un articulo (ie, un item en el caso del rss feed) */
@@ -57,11 +61,15 @@ public class Article {
 	public void setLink(String link) {
 		this.link = link;
 	}
+
+	public List<NamedEntity> getNamedEntityList() {
+		return namedEntityList;
+	}
 	
 	@Override
 	public String toString() {
 		return "Article [title=" + title + ", text=" + text + ", publicationDate=" + publicationDate + ", link=" + link
-				+ "]";
+				+ " namedEntityList " + namedEntityList + "]";
 	}
 	
 	
@@ -78,18 +86,51 @@ public class Article {
 	public void computeNamedEntities(Heuristic h){
 		String text = this.getTitle() + " " +  this.getText();  
 			
-		String charsToRemove = ".,;:()'!?\n";
+		String charsToRemove = ".‘,$;%-:’()'“”!?\n";
 		for (char c : charsToRemove.toCharArray()) {
 			text = text.replace(String.valueOf(c), "");
 		}
 			
 		for (String s: text.split(" ")) {
 			if (h.isEntity(s)){
-				NamedEntity ne = this.getNamedEntity(s);
-				if (ne == null) {
-					this.namedEntityList.add(new NamedEntity(s, null,1));
-				}else {
-					ne.incFrequency();
+				String category = h.getCategory(s);
+				if(category!=null && category.equals("Company")) {
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Organization org = new Organization(s, 1);
+						org.setCanonicForm(s);
+						this.namedEntityList.add(org);
+					}
+				} else if (category!=null && category.equals("Person")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Person per = new Person(s, 1);
+						per.setLastName(s, Optional.empty());
+						this.namedEntityList.add(per);
+					}
+				} else if(category!=null && category.equals("Country")) {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Other oth = new Other(s, 1, "Pais");
+						this.namedEntityList.add(oth);
+					}
+				} else {
+
+
+					if(getNamedEntity(s) != null){
+						getNamedEntity(s).incFrequency();
+					} else {
+						Other oth = new Other(s, 1, "???");
+						this.namedEntityList.add(oth);
+					}
 				}
 			}
 		} 
