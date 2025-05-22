@@ -13,7 +13,7 @@ import java.text.ParseException;
 public class FeedReaderMain {
 
     private static void printHelp(){
-        System.out.println("Please, call this program in correct way: FeedReader [-ne]");
+        System.out.println("Please, call this program in correct way: FeedReader [-ne=h] where h can be: r for RandomHeuristic or q for QuickHeuristic");
     }
 
     public static void main(String[] args) throws IOException, URISyntaxException, ParserConfigurationException, SAXException, ParseException{
@@ -66,12 +66,18 @@ public class FeedReaderMain {
             Llamar a la heuristica para que compute las entidades nombradas de cada articulos del feed
             LLamar al prettyPrint de la tabla de entidades nombradas del feed.
              */
-
+            //-ne=q -ne=r
             SubscriptionParser subParser = new SubscriptionParser();
             Subscription subs = subParser.FileParser("./src/main/config/subscriptions.json");
-
-            
-            QuickHeuristic heuristica = new QuickHeuristic();
+            Heuristic heuristica;
+            if(args[0].equals("-ne=q")){
+                heuristica = new QuickHeuristic();
+            }else if(args[0].equals("-ne=r")){
+                heuristica = new RandomHeuristic();
+            } else {
+                printHelp();
+                return ;
+            }
 
             for (int i = 0; i < subs.getSubscriptionsList().size(); i++) {
                 if(subs.getSingleSubscription(i).getUrlType().equals("rss")){
