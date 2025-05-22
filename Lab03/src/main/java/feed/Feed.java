@@ -74,6 +74,15 @@ public void heuristicPrint() {
     "%-30s-+-%10s-+-%-20s%n", 
     "-".repeat(30), "-".repeat(10), "-".repeat(20)
   );
+  Counter person = new Counter();
+  Counter country = new Counter();
+  Counter city = new Counter();
+  Counter address = new Counter();
+  Counter company = new Counter();
+  Counter product = new Counter();
+  Counter event = new Counter();
+  Counter date = new Counter();
+  Counter other = new Counter();
   
   for (NamedEntity e : allEntities) {
     System.out.printf(
@@ -82,26 +91,46 @@ public void heuristicPrint() {
         e.getFrequency(),
         e.getCategory()
     );
-    Counter person = new Counter("person");
-    Counter country = new Counter("country");
-    Counter city = new Counter("city");
-    Counter address = new Counter("address");
-    Counter organization = new Counter("organization");
-    Counter product = new Counter("product");
-    Counter event = new Counter("event");
-    Counter date = new Counter("date");
-    Counter other = new Counter("other");
 
     
+    if(e.getCategory().equals("Person")){
+      person.increment();
+    }else if(e.getCategory().equals("Company")){
+      company.increment();
+    }else if(e.getCategory().equals("Country")){
+      country.increment();
+    }else if(e.getCategory().equals("City")){
+      city.increment();
+    }else if(e.getCategory().equals("Address")){
+      address.increment();
+    }else if(e.getCategory().equals("Product")){
+      product.increment();
+    }else if(e.getCategory().equals("Date")){
+      date.increment();
+    }else if(e.getCategory().equals("Event")){
+      event.increment();
+    }else if(e.getCategory().equals("Other")){
+      other.increment();
+    }
+    
   }
+
   System.out.println("Cantidad de entidades:" + allEntities.size());
+  System.out.printf(
+    "%-20s | %10s | %10s | %10s | %20s | %10s | %10s | %10s | %-20s%n", 
+    "Personas", "Paises", "Ciudades", "Direcciones", "Compañias", "Productos", "Eventos", "Fechas", "Otras"
+  );
+  System.out.printf(
+    "%-20s | %10s | %10s | %10s | %20s | %10s | %10s | %10s | %-20s%n", 
+    person.getValue(), country.getValue(), city.getValue(), address.getValue(), company.getValue(), product.getValue(), event.getValue(), date.getValue(), other.getValue()
+  );
 
 }
 
 public void prettyPrint(){
-for (Article a: this.getArticleList()){
-a.prettyPrint();
-}
+  for (Article a: this.getArticleList()){
+    a.prettyPrint();
+  }
 
 }
 
