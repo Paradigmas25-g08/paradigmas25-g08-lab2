@@ -10,6 +10,11 @@ import namedEntity.person.*;
 import namedEntity.*;
 import namedEntity.location.*;
 import namedEntity.heuristic.Heuristic;
+import namedEntity.theme.*;
+import namedEntity.theme.Culture.*;
+import namedEntity.theme.Politic.*;
+import namedEntity.theme.Sports.*;
+
 
 /*Esta clase modela el contenido de un articulo (ie, un item en el caso del rss feed) */
 
@@ -93,13 +98,14 @@ public class Article {
 			
 		for (String s: text.split(" ")) {
 			if (h.isEntity(s)){
+				Theme theme = this.newTheme(h.getTheme(s));
 				String category = h.getCategory(s);
 				if(category!=null && category.equals("Company")) {
 
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Company org = new Company(s, 1);
+						Company org = new Company(s, 1, theme);
 						org.setCanonicForm(s);
 						this.namedEntityList.add(org);
 					}
@@ -109,7 +115,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Person per = new Person(s, 1);
+						Person per = new Person(s, 1, theme);
 						per.setLastName(s, Optional.empty());
 						this.namedEntityList.add(per);
 					}
@@ -119,7 +125,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Country coun = new Country(s, 1);
+						Country coun = new Country(s, 1, theme);
 						this.namedEntityList.add(coun);
 					}
 				} else if(category!=null && category.equals("City")) {
@@ -128,7 +134,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						City city = new City(s, 1);
+						City city = new City(s, 1, theme);
 						this.namedEntityList.add(city);
 					}
 				} else if(category!=null && category.equals("Address")) {
@@ -137,7 +143,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Address ads = new Address(s, 1);
+						Address ads = new Address(s, 1, theme);
 						this.namedEntityList.add(ads);
 					}
 				} else if(category!=null && category.equals("Product")) {
@@ -146,7 +152,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Product pdt = new Product(s, 1);
+						Product pdt = new Product(s, 1, theme);
 						this.namedEntityList.add(pdt);
 					}
 				} else if(category!=null && category.equals("Event")) {
@@ -155,7 +161,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Event evt = new Event(s, 1);
+						Event evt = new Event(s, 1, theme);
 						this.namedEntityList.add(evt);
 					}
 				} else if(category!=null && category.equals("Date")) {
@@ -164,7 +170,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Date1 dt = new Date1(s, 1);
+						Date1 dt = new Date1(s, 1, theme);
 						this.namedEntityList.add(dt);
 					}
 				} else {
@@ -173,7 +179,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Other oth = new Other(s, 1);
+						Other oth = new Other(s, 1, theme);
 						this.namedEntityList.add(oth);
 					}
 				}
@@ -181,7 +187,38 @@ public class Article {
 		} 
 	}
 
-	
+	private Theme newTheme(String theme){
+		if(theme != null){
+			if(theme.equals("Football")){
+				return new Futbol();
+			} else if(theme.equals("Formula1")){
+				return new Formula1();
+			} else if(theme.equals("Tenis")){
+				return new Tenis();
+			} else if(theme.equals("Basquetball")){
+				return new Basquet();
+			} else if(theme.equals("OtherSport")){
+				return new OtrosDeportes();
+			} else if(theme.equals("International")){
+				return new Internacional();
+			} else if(theme.equals("National")){
+				return new Nacional();
+			} else if(theme.equals("OtherPolitic")){
+				return new OtherPolitic();
+			} else if(theme.equals("Cinema")){
+				return new Cine();
+			} else if(theme.equals("Music")){
+				return new Musica();
+			} else if(theme.equals("OtherCulture")){
+				return new OtrosCultura();
+			} else {
+				return new Othertheme();	
+			}
+		}else {
+			return new Othertheme();
+		}
+	}
+
 	public void prettyPrint() {
 		System.out.println("**********************************************************************************************");
 		System.out.println("Title: " + this.getTitle());

@@ -1,6 +1,7 @@
 package namedEntity.location;
 
 import namedEntity.*;
+import namedEntity.theme.*;
 
 public class City extends NamedEntity {
 
@@ -9,8 +10,8 @@ public class City extends NamedEntity {
     int population;
     
     
-    public City(String name, int frequency){
-        super(name, "City", frequency);
+    public City(String name, int frequency, Theme theme){
+        super(name, "City", frequency, theme);
         this.country = null;
         this.capital = null;
         this.population = -1;

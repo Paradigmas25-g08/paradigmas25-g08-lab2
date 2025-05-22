@@ -1,11 +1,12 @@
 package namedEntity;
 import java.util.Date;
+import namedEntity.theme.*;
 
 public class Date1 extends NamedEntity{
     Date precise;
     String canonicForm;
-    public Date1(String name, int frequency){
-        super(name, "Date", frequency);
+    public Date1(String name, int frequency, Theme theme){
+        super(name, "Date", frequency, theme);
         this.precise = null;
         this.canonicForm = null;
 

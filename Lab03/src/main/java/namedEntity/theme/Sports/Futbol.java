@@ -1,4 +1,4 @@
-package namedEntity.Sports;
+package namedEntity.theme.Sports;
 
 public class Futbol extends Deportes {
     public Futbol() {

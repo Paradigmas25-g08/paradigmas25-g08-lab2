@@ -1,12 +1,14 @@
 package namedEntity;
 
+import namedEntity.theme.*;
+
 public class Product extends NamedEntity{
 
     private String comercial;
     private String producer;
 
-    public Product(String name, int frequency){
-        super(name, "Product", frequency);
+    public Product(String name, int frequency, Theme theme){
+        super(name, "Product", frequency, theme);
         this.comercial = "";
         this.producer = "";
     }

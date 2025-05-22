@@ -1,4 +1,4 @@
-package namedEntity.Culture;
+package namedEntity.theme.Culture;
 
 public class Cine extends Cultura {
     public Cine() {

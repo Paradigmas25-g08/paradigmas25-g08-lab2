@@ -67,8 +67,8 @@ public void heuristicPrint() {
     }
   }
   System.out.printf(
-    "%-30s | %10s | %-20s%n", 
-    "Name", "Frequency", "Category"
+    "%-30s | %10s | %20s | %-20s%n", 
+    "Name", "Frequency", "Category", "Theme"
   );
   System.out.printf(
     "%-30s-+-%10s-+-%-20s%n", 
@@ -86,10 +86,11 @@ public void heuristicPrint() {
   
   for (NamedEntity e : allEntities) {
     System.out.printf(
-        "%-30s | %10d | %-20s%n",
+        "%-30s | %10s | %20s | %-20s%n",
         e.getName(),
         e.getFrequency(),
-        e.getCategory()
+        e.getCategory(),
+        e.getTheme().getName()
     );
 
     

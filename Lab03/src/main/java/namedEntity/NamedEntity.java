@@ -10,11 +10,12 @@ public class NamedEntity {
 	protected int frequency;
 	protected Theme theme;
 	
-	public NamedEntity(String name, String category, int frequency) {
+	public NamedEntity(String name, String category, int frequency, Theme theme) {
 		super();
 		this.name = name;
 		this.category = category;
 		this.frequency = frequency;
+		this.theme = theme;
 	}
 
 	public String getName() {
@@ -43,6 +44,10 @@ public class NamedEntity {
 
 	public void incFrequency() {
 		this.frequency++;
+	}
+
+	public Theme getTheme(){
+		return theme;
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import namedEntity.theme.Theme;
 
 public abstract class Cultura extends Theme {
     public Cultura(String name) {
-        super(name);
+        super("Cultura:" + name);
     }
 }
 

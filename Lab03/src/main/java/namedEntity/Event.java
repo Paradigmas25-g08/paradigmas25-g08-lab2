@@ -1,5 +1,6 @@
 package namedEntity;
 
+import namedEntity.theme.*;
 
 
 public class Event extends NamedEntity{
@@ -7,8 +8,8 @@ public class Event extends NamedEntity{
     private Date1 date;
     private String recurrent;
 
-    public Event(String name, int frequency){
-        super(name, "Event", frequency);
+    public Event(String name, int frequency, Theme theme){
+        super(name, "Event", frequency, theme);
         this.canonicForm = null;
         this.date = null;
         this.recurrent = null;

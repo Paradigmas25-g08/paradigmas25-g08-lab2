@@ -1,6 +1,7 @@
 package namedEntity.person;
 
 import namedEntity.*;
+import namedEntity.theme.*;
 import java.util.Optional;
 
 public class Person extends NamedEntity {
@@ -9,8 +10,8 @@ public class Person extends NamedEntity {
 	private FirstName firstName;
 	private Title title;
 
-    public Person(String name, int frequency) {
-		super(name, "Person", frequency);
+    public Person(String name, int frequency, Theme theme) {
+		super(name, "Person", frequency, theme);
         this.id = 1;
 		this.lastName = new LastName();
 		this.firstName = new FirstName();

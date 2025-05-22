@@ -1,13 +1,14 @@
 package namedEntity.location;
 
 import namedEntity.*;
+import namedEntity.theme.*;
 
 public class Address extends NamedEntity {
 
     City city;
 
-    public Address(String name, int frequency){
-        super(name, "Address", frequency);
+    public Address(String name, int frequency, Theme theme){
+        super(name, "Address", frequency, theme);
         this.city = null;;
 
     }

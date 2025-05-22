@@ -1,10 +1,12 @@
 package namedEntity;
 
+import namedEntity.theme.*;
+
 public class Other extends NamedEntity{
     private String coments;
 
-    public Other(String name, int frequency){
-        super(name, "Other", frequency);
+    public Other(String name, int frequency, Theme theme){
+        super(name, "Other", frequency, theme);
         this.coments = null;
     }
     public String getComents(){

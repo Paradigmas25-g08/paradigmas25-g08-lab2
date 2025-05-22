@@ -1,13 +1,14 @@
 package namedEntity;
 
+import namedEntity.theme.*;
 
 public class Company extends NamedEntity {
     String canonicForm;
     int memberNumber;
     String type;
 
-    public Company(String name, int frequency) {
-        super(name, "Company", frequency);
+    public Company(String name, int frequency, Theme theme) {
+        super(name, "Company", frequency, theme);
         this.canonicForm = null;
         this.memberNumber = -1;
         this.type = null;
