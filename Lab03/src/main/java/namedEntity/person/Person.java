@@ -49,7 +49,7 @@ public class Person extends NamedEntity {
 
     @Override
 	public String toString() {
-		return "Person [id="+ "]";
+		return "Person [id="+ id +" name="+ super.name +" frequency="+ super.frequency +"]";
 	}
     @Override
 	public void prettyPrint(){

@@ -4,9 +4,9 @@ package namedEntity;
 /*Esta clase modela la nocion de entidad nombrada*/
 
 public class NamedEntity {
-	String name;
-	String category; 
-	int frequency;
+	protected String name;
+	protected String category; 
+	protected int frequency;
 	
 	public NamedEntity(String name, String category, int frequency) {
 		super();
@@ -24,11 +24,11 @@ public class NamedEntity {
 	}
 
 	public String getCategory() {
-		return name;
+		return category;
 	}
 
-	public void setCategory(String name) {
-		this.name = name;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public int getFrequency() {

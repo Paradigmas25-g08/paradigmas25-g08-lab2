@@ -15,4 +15,12 @@ public class Other extends NamedEntity{
         this.coments = comm;
     }
 
+    @Override
+    public String toString() {
+        return "Other[name=" + name + ", frequency=" + frequency + " comments="+ coments +"]";
+    }
+    public void prettyPrint(){
+        System.out.println(this.getName() + " " + this.getFrequency() + " " + this.getComents());
+    }
+
 }

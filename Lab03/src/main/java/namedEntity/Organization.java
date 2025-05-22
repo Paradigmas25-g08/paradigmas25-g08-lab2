@@ -39,7 +39,7 @@ public class Organization extends NamedEntity {
 
     @Override
 	public String toString() {
-		return "Organization [canonicForm=" + canonicForm + ", memberNumber=" + memberNumber + ", type=" + type +"]";
+		return "Organization [canonicForm=" + canonicForm + ", name=" + name + ", frequency=" + frequency +"]";
 	}
     @Override
 	public void prettyPrint(){
