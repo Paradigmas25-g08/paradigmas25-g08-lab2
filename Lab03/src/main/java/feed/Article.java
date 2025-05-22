@@ -99,7 +99,7 @@ public class Article {
 					if(getNamedEntity(s) != null){
 						getNamedEntity(s).incFrequency();
 					} else {
-						Organization org = new Organization(s, 1);
+						Company org = new Company(s, 1);
 						org.setCanonicForm(s);
 						this.namedEntityList.add(org);
 					}

@@ -1,13 +1,13 @@
 package namedEntity;
 
 
-public class Organization extends NamedEntity {
+public class Company extends NamedEntity {
     String canonicForm;
     int memberNumber;
     String type;
 
-    public Organization(String name, int frequency) {
-        super(name, "Organization", frequency);
+    public Company(String name, int frequency) {
+        super(name, "Company", frequency);
         this.canonicForm = null;
         this.memberNumber = -1;
         this.type = null;
@@ -39,7 +39,7 @@ public class Organization extends NamedEntity {
 
     @Override
 	public String toString() {
-		return "Organization [canonicForm=" + canonicForm + ", name=" + name + ", frequency=" + frequency +"]";
+		return "Company [canonicForm=" + canonicForm + ", name=" + name + ", frequency=" + frequency +"]";
 	}
     @Override
 	public void prettyPrint(){
