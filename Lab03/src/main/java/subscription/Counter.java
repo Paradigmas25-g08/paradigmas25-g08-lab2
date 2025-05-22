@@ -1,21 +1,17 @@
 package subscription;
 
 public final class Counter{
-	private int value;
-	private String name;
+	private int value=0;
 
-	public Counter(String name){
-		this.value = 0;
-		this.name = name;
-	} 
-	
-	public String getName() {
-		return name;
-	}
 	
 	public void increment(){
 		value = value + 1;
 	}
+
+	public int getValue(){
+		return this.value;
+	}
+
 	public void printValue(){
 		System.out.println(value);
 	}
