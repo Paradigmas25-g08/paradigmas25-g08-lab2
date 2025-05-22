@@ -7,6 +7,7 @@ public class NamedEntity {
 	protected String name;
 	protected String category; 
 	protected int frequency;
+	protected Theme theme;
 	
 	public NamedEntity(String name, String category, int frequency) {
 		super();
